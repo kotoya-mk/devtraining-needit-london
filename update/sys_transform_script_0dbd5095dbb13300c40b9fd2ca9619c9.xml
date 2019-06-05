@@ -2,30 +2,35 @@
     <sys_transform_script action="INSERT_OR_UPDATE">
         <active>true</active>
         <map display_value="NeedIt Import REST">633c818ddb4d3300c40b9fd2ca9619f8</map>
-        <order>95</order>
+        <order>89</order>
         <script><![CDATA[(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
-
+	
 	// Add your code here
-	var testq = new GlideRecord('x_58872_needit_needit');
-	testq.addQuery('u_description', 'CONTAINS', 'abc');
+	var testq = new GlideRecord(target.getTableName());
+	testq.addQuery("requested_for.last_name", "CONTAINS",source.u_requested_for.getDisplayValue());
 	testq.query();
-	while(testq.next()){
-		target.short_description = 'abcde';
+	if(!testq.next()){
+		error = true;
+		error_message = 'requested_for に登録できるIDやないで';
 	}
+// 	while(testq.next()){
+// 		testq.description = 'abcde';
+// 		testq.update();
+// 	}
 
 })(source, map, log, target);]]></script>
         <sys_class_name>sys_transform_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-06-01 14:02:31</sys_created_on>
         <sys_id>0dbd5095dbb13300c40b9fd2ca9619c9</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>onStart</sys_name>
+        <sys_mod_count>25</sys_mod_count>
+        <sys_name>onBefore</sys_name>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
         <sys_policy/>
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
         <sys_update_name>sys_transform_script_0dbd5095dbb13300c40b9fd2ca9619c9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-06-01 14:02:31</sys_updated_on>
-        <when>onStart</when>
+        <sys_updated_on>2019-06-05 08:44:23</sys_updated_on>
+        <when>onBefore</when>
     </sys_transform_script>
 </record_update>
